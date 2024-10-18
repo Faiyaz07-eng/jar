@@ -1,0 +1,29 @@
+package webPage;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.firefox.*;
+import org.openqa.selenium.WebElement;
+
+
+
+public class login {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.gecko.driver","D:\\faiyaz pr 4 sqta\\geckodriver.exe");
+		FirefoxDriver driver=new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("https://github.com/login");
+		driver.findElement(By.name("login")).sendKeys("Faiyaz07-eng");
+		driver.findElement(By.name("password")).sendKeys("faiyazkhan@@8657");
+		driver.findElement(By.xpath("//*[@name='commit']")).click();
+		
+		String s=driver.getCurrentUrl();
+		if(s.equals("https://github.com/"))
+			System.out.println("login Successfully");
+		else
+			System.out.println("Login Failed");
+		
+	}
+
+}

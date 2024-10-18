@@ -1,0 +1,92 @@
+package TenRecords;
+
+import java.io.File;
+import java.io.IOException;
+import jxl.Workbook;
+
+import jxl.write.Label;
+import jxl.write.Number;
+import jxl.write.WritableWorkbook;
+import jxl.write.WritableSheet;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
+
+
+
+
+
+public class xslData {
+	
+	private String inputFile;
+	public void setOutputFile(String inputFile) {
+		this.inputFile=inputFile;
+	}
+	
+	public void write() throws RowsExceededException, WriteException, IOException  {
+		
+		File file =new File(inputFile);
+		WritableWorkbook workbook=Workbook.createWorkbook(file);
+		workbook.createSheet("Report", 0);
+		WritableSheet excelsheet=workbook.getSheet(0);
+		createLable(excelsheet);
+		createContent(excelsheet);
+		workbook.write();
+		workbook.close();
+
+	}
+	
+	private void createLable(WritableSheet sheet) throws RowsExceededException, WriteException {
+		
+		addCaption(sheet,0,0,"Student Name");
+		addCaption(sheet,1,0,"Subject 1");
+		addCaption(sheet,2,0,"Subject 2");
+		addCaption(sheet,3,0,"Subject 3");
+		addCaption(sheet,4,0,"Total");
+	}
+	
+	private void addCaption(WritableSheet sheet, int column,int row, String s) throws RowsExceededException, WriteException {
+		Label label;
+		label=new Label(column, row, s);
+		sheet.addCell(label);
+
+	}
+	
+	private void addNumber(WritableSheet sheet, int column, int row, Integer integer) throws RowsExceededException, WriteException {
+		Number number;
+		number=new Number(column, row, integer);
+		sheet.addCell(number);
+
+	}
+	
+	private void addLabel(WritableSheet sheet, int column,int row, String s) throws RowsExceededException, WriteException {
+		
+		Label label=new Label(column, row, s);
+		sheet.addCell(label);
+	}
+	private void createContent(WritableSheet sheet) throws RowsExceededException, WriteException {
+		for(int i=1; i<10;i++)
+		{
+			addLabel(sheet, 0 ,i, "Student"+i);
+			addNumber(sheet, 1, i,(i+i)+17);
+			addNumber(sheet, 2, i,(i+i)+14);
+			addNumber(sheet, 3, i,(i+i)+13);
+			int total;
+			total=3*(i*i)+17+14+13;
+			addNumber(sheet,4, i,total);
+			
+			
+		}
+		
+	}
+	
+
+	public static void main(String[] args) throws RowsExceededException, WriteException, IOException {
+		// TODO Auto-generated method stub
+		xslData test=new xslData();
+		test.setOutputFile("E:\\TYCS-a62(STQA)\\PractExcel1.xls");
+		test.write();
+		System.out.println("Check the File in the Location ");
+	}
+
+
+}
